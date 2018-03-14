@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>AMF TEST</title>
+  </head>
+  <body>
+    <!-- <script src="amf-client-module.js"></script> -->
+    <!-- <script src="build/browserified.js"></script> -->
+    <script src="amf-playground.js"></script>
+    <!-- <script src="node_modules/amf-client-js/amfbrowser.js"></script> -->
+    <script>
+    const raml = `
+#%RAML 1.0
+
+title: ACME Banking HTTP API
+version: 1.0
+mediaType: application/json
+    `;
+    const AMF = amf;
+    AMF.plugins.document.WebApi.register();
+    AMF.plugins.document.Vocabularies.register();
+    AMF.plugins.features.AMFValidation.register();
+
+    AMF.Core.init().then(function() {
+      let parser = AMF.Core.parser('RAML 1.0', 'application/yaml');
+      debugger;
+      parser.parseStringAsync('raml', 'amf', raml)
+      .then((result) => {
+debugger;
+      })
+    });
+    </script>
+  </body>
+</html>
