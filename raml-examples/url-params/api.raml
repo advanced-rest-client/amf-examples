@@ -1,0 +1,91 @@
+#%RAML 1.0
+title: Oauth 2.0 example
+version: v1
+baseUri: http://domain.api.domain.com:8254/{apiVersion}/
+
+baseUriParameters:
+  apiVersion:
+    type: integer
+    displayName: API version
+    enum: [1, 2, 3]
+
+traits:
+  paginated:
+    queryParameters:
+      limit:
+        type: number
+        description: Limit in the response list
+        maximum: 300
+        minimum: 1
+        example: 100
+        default: 25
+      start:
+        type: number
+        description: The start entry of the list
+        minimum: 0
+        example: 25
+        default: 0
+      nextPageToken:
+        type: string
+        example: CiAKGjBpNDd2Nmp2Zml2cXRwYjBpOXA
+        description: |
+          The `nextPageToken` is a web safe encoded cursor to the next entry in the database.
+          It can be obtained by requesting paginated resource and used in next request to get
+          next results page.
+        pattern: "[a-zA-Z0-9]+"
+securitySchemes:
+  x1: !include ../raml-example-api/securitySchemes/x-custom.raml
+  x2: !include ../raml-example-api/securitySchemes/x-other.raml
+/simple:
+  get:
+    queryParameters:
+      paramString:
+        type: string
+        displayName: String value
+      param_number:
+        type: number
+        minimum: 20
+        maximum: 100
+  /{pathParam}:
+    uriParameters:
+      pathParam:
+        type: string
+        displayName: Path parameter
+        enum: [value1, value2, value3]
+    get:
+      queryParameters:
+        limit: number
+/traits:
+  get:
+    is:  [paginated]
+    securedBy: [x1]
+/security/{param}:
+  securedBy: [x2]
+/complex:
+  get:
+  /path:
+    get:
+    /{to}:
+      uriParameters:
+        to:
+          type: string
+      get:
+        queryParameters:
+          a: string
+          b: string
+      /endpoint:
+        is: [paginated]
+        securedBy: [x1]
+        post:
+          body:
+            application/json:
+              type: object
+              properties:
+                test: string
+          responses:
+            200:
+              body:
+                application/json:
+                  type: object
+                  properties:
+                    error: boolean
