@@ -104,6 +104,7 @@ annotationTypes:
 securitySchemes:
   oauth2Normal:
     type: OAuth 2.0
+    displayName: Normal OAuth 2.0 definition
     settings:
       accessTokenUri: https://token.com
       authorizationUri: https://auth.com
@@ -114,8 +115,12 @@ securitySchemes:
         access_token:
           type: string
           description: Apply access token here.
+      headers:
+        Authorization:
+          type: string
   oauth2:
     type: OAuth 2.0
+    displayName: OAuth 2.0 with annotation
     settings:
       (oauth-2-custom-settings):
         # ignoreDefaultGrants:
@@ -194,7 +199,7 @@ securitySchemes:
   get:
     securedBy: [oauth2]
   post:
-    securedBy: [oauth2Normal]
+    securedBy: [oauth2Normal, oauth2]
   put:
     securedBy: [null, oauth2]
 /basic:
@@ -220,3 +225,6 @@ securitySchemes:
 /custom2:
   get:
     securedBy: [custom2]
+/combo:
+  get:
+    securedBy: [null, basic, digest, pass, oauth1, oauth2Normal, custom1, custom2]
