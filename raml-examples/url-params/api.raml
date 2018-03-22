@@ -62,7 +62,7 @@ securitySchemes:
 /security/{param}:
   securedBy: [x2]
 /complex:
-  get:
+  displayName: Complex route
   /path:
     get:
     /{to}:
@@ -70,6 +70,7 @@ securitySchemes:
         to:
           type: string
       get:
+        is: [paginated]
         queryParameters:
           a: string
           b: string
