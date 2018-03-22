@@ -8,7 +8,13 @@ baseUriParameters:
     type: integer
     displayName: API version
     enum: [1, 2, 3]
+    description: |
+      API documentation version.
 
+      Can be any of:
+      - `1` - deprecated
+      - `2` - scheduled to deprecate
+      - `3` - current
 traits:
   paginated:
     queryParameters:
@@ -52,15 +58,39 @@ securitySchemes:
         type: string
         displayName: Path parameter
         enum: [value1, value2, value3]
+        description: |
+          This is test description with `markup`.
+
+          This value can be one of:
+          - `value1`
+          - `value2`
+          - `value3`
     get:
       queryParameters:
         limit: number
+        items:
+          type: string[]
+
 /traits:
   get:
     is:  [paginated]
     securedBy: [x1]
 /security/{param}:
   securedBy: [x2]
+  uriParameters:
+    param:
+      type: string
+      description: |
+        This is test description with `markup`.
+
+        This value can be one of:
+        - `value1`
+        - `value2`
+        - `value3`
+        - any other value
+  get:
+    queryParameters:
+      securityLevel: string
 /complex:
   displayName: Complex route
   /path:
