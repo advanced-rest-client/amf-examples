@@ -15,6 +15,45 @@ annotationTypes:
         pattern: "\\d{3}-\\w{12}"
         required: true
 types:
+  Person:
+    properties:
+      name:
+        type: string
+        description: Name of the person
+      email:
+        type: string
+      image:
+        type: file
+        fileTypes: ['image/jpeg', 'image/png']
+      age:
+        type: number
+        description: Age of the person.
+  File:
+    properties:
+      originalName:
+        type: string
+        description: Original file name.
+      created:
+        type: datetime
+        description: Original file creation time
+      file:
+        type: file
+        description: File content stored on the server.
+  Oauth2paramsType:
+    properties:
+      grant_type:
+        type: string
+        description: OAuth2
+        enum: [authorization_code, password, client_credentials, refresh_token]
+      code:
+        type: string
+        description: Code property returned by the authorization server.
+      redirect_uri:
+        type: string
+        description: Registered redirect URI
+      client_id:
+        type: string
+        description: Registered client id
   Image:
     description: |
       Type describing an image resource
@@ -105,3 +144,40 @@ securedBy: basic
         body:
           application/json:
             type: Product
+/people:
+  post:
+    body:
+      application/json:
+        displayName: Test
+        type: Product
+        description: Test method with payload.
+      application/xml:
+        displayName: Test XML
+        type: Product
+      application/x-www-form-urlencoded:
+        displayName: Test URL encoded
+        type: Oauth2paramsType
+      multipart/form-data:
+        displayName: Test Form Data
+        type: object
+        properties:
+          name: string
+          value?:
+            type: string
+            example: test
+            default: test
+/file:
+  put:
+    body:
+      image/*:
+        type: file
+        fileTypes: ['image/*']
+  post:
+    body:
+      multipart/form-data:
+        type: File
+/test:
+  post:
+    body:
+      multipart/form-data:
+        type: Person
