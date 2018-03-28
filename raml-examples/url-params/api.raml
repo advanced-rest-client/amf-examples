@@ -1,9 +1,13 @@
 #%RAML 1.0
 title: Oauth 2.0 example
 version: v1
-baseUri: http://domain.api.domain.com:8254/{apiVersion}/
+baseUri: http://{host}.api.domain.com:8254/{apiVersion}/
 
 baseUriParameters:
+  host:
+    type: string
+    pattern: (production|development)
+    description: Either `production` or `development`
   apiVersion:
     type: integer
     displayName: API version
@@ -39,6 +43,7 @@ traits:
           It can be obtained by requesting paginated resource and used in next request to get
           next results page.
         pattern: "[a-zA-Z0-9]+"
+        displayName: Page token
 securitySchemes:
   x1: !include ../raml-example-api/securitySchemes/x-custom.raml
   x2: !include ../raml-example-api/securitySchemes/x-other.raml

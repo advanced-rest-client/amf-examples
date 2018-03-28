@@ -210,7 +210,7 @@ securedBy: [oauth_2_0, oauth_1_0, pass_through, basic, digest, x-custom, x-other
         description: People ops ID. It is UUID v4 string
         example: 9719fa6f-c666-48e0-a191-290890760b30
   /{personId}:
-    type: [ResourceNotFound]
+    # type: [ResourceNotFound]
     displayName: A person
     description: The endpoint to access information about the person
     uriParameters:
@@ -321,7 +321,7 @@ securedBy: [oauth_2_0, oauth_1_0, pass_through, basic, digest, x-custom, x-other
       400:
         description: The request has been rejected. Probably the product already exists in the datastore.
   /{productId}:
-    type: [ResourceNotFound]
+    # type: [ResourceNotFound]
     get:
       responses:
         200:
@@ -447,3 +447,33 @@ securedBy: [oauth_2_0, oauth_1_0, pass_through, basic, digest, x-custom, x-other
           type: array
           items: !include resourceTypes/message-sent-type.raml
           example: !include examples/messages-sent-example.json
+/dataTypes:
+  get:
+    queryParameters:
+      intParam:
+        type: integer
+        minimum: 1
+        maximum: 100
+        multipleOf: 2
+      numParam:
+        type: number
+        minimum: 100
+      strParam:
+        type: string
+        example: TestString
+        pattern: "[a-zA-Z]*"
+        description: Only letters are allowed
+      boolParam:
+        type: boolean
+        example: true
+      dateParam:
+        type: date-only
+        description: Date only.
+      timeParam:
+        type: time-only
+        description: Time only.
+      dateTimeParam:
+        type: datetime
+      floatParam:
+        type: number
+        multipleOf: 0.1

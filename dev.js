@@ -7,9 +7,10 @@ amf.plugins.features.AMFValidation.register();
 
 // const dataPath = 'raml-examples/raml-query-params';
 // const dataPath = 'raml-examples/raml-headers';
-const dataPath = 'raml-examples/raml-body-params';
+// const dataPath = 'raml-examples/raml-body-params';
 // const dataPath = 'raml-examples/raml-auth';
 // const dataPath = 'raml-examples/url-params';
+const dataPath = 'raml-examples/raml-example-api';
 amf.Core.init().then(() => {
   const ramlParser = amf.Core.parser('RAML 1.0', 'application/yaml');
   const jsonLdParser = amf.Core.generator('AMF Graph', 'application/ld+json');
@@ -17,8 +18,10 @@ amf.Core.init().then(() => {
   .then((doc) => {
     const r = amf.Core.resolver('RAML 1.0');
     doc = r.resolve(doc);
-    const json = jsonLdParser.generateString(doc);
-    fs.writeFileSync(`${dataPath}/dev-out.json`, json, 'utf8');
+    return jsonLdParser.generateString(doc);
+  })
+  .then((data) => {
+    fs.writeFileSync(`${dataPath}/dev-out.json`, data, 'utf8');
   })
   .catch((cause) => {
     console.error(cause);
