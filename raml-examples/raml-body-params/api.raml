@@ -69,6 +69,19 @@ types:
         type: string
         enum: [thumb, full, hd, 4k]
       url: string
+  WebFile:
+    description: A file that exists on an external server
+    type: object
+    properties:
+      name:
+        type: string
+        displayName: File title
+        description: |
+          A file description
+      url:
+        type: string
+        description: |
+          Complete URL to the file.
   Product:
     displayName: A product resource
     description: A single product representing an item in the store.
@@ -113,6 +126,14 @@ types:
         required: true
         example: true
       images: Image[]
+      documentation:
+        description: |
+          A PDF file with specoification.
+        type: WebFile
+      icon:
+        type: Image
+        required: false
+        description: File icons
     example:
       id: we2322-4f4f4f-f4f4ff-f4f4ff4
       name: Acme Product
@@ -123,20 +144,21 @@ types:
       images:
         - type: thumb
           url: https://domain.com
+      documentation:
+        name: Test doc
+        url: https://files.domain.com/file
 securitySchemes:
   basic:
     type: Basic Authentication
     description: Hello auth
   oauth: !include oauth2.raml
 
-securedBy: basic
-
 /endpoint:
   securedBy: [oauth]
   post:
     body:
       application/json:
-        type: Product
+        type: Person
   get:
     securedBy: [null, basic, oauth]
     responses:
@@ -144,8 +166,15 @@ securedBy: basic
         body:
           application/json:
             type: Product
-/people:
+/product:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Product
   post:
+    securedBy: [basic]
     body:
       application/json:
         displayName: Test
