@@ -161,7 +161,7 @@
                             ],
                             "http://www.w3.org/ns/shacl#pattern": [
                               {
-                                "@value": "^[a-zA-Z]+$"
+                                "@value": "^[a-zA-Z\\W\\:]+$"
                               }
                             ],
                             "http://www.w3.org/ns/shacl#minLength": [
@@ -196,6 +196,11 @@
                                     "@type": "http://www.w3.org/2001/XMLSchema#string"
                                   }
                                 ]
+                              }
+                            ],
+                            "http://www.w3.org/ns/shacl#defaultValueStr": [
+                              {
+                                "@value": "defaultValue"
                               }
                             ],
                             "http://raml.org/vocabularies/document#examples": [
@@ -291,6 +296,11 @@
                                     "@type": "http://www.w3.org/2001/XMLSchema#string"
                                   }
                                 ]
+                              }
+                            ],
+                            "http://www.w3.org/ns/shacl#defaultValueStr": [
+                              {
+                                "@value": "devault required value"
                               }
                             ],
                             "http://raml.org/vocabularies/document#examples": [
@@ -1127,6 +1137,11 @@
                                     "@type": "http://www.w3.org/2001/XMLSchema#integer"
                                   }
                                 ]
+                              }
+                            ],
+                            "http://www.w3.org/ns/shacl#defaultValueStr": [
+                              {
+                                "@value": "30"
                               }
                             ],
                             "http://raml.org/vocabularies/document#examples": [

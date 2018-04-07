@@ -6,8 +6,8 @@ amf.plugins.document.Vocabularies.register();
 amf.plugins.features.AMFValidation.register();
 
 // const dataPath = 'raml-examples/raml-query-params';
-// const dataPath = 'raml-examples/raml-headers';
-const dataPath = 'raml-examples/raml-body-params';
+const dataPath = 'raml-examples/raml-headers';
+// const dataPath = 'raml-examples/raml-body-params';
 // const dataPath = 'raml-examples/raml-auth';
 // const dataPath = 'raml-examples/url-params';
 // const dataPath = 'raml-examples/raml-example-api';
