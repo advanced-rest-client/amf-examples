@@ -18,6 +18,12 @@ traits:
   get:
     is: [Headerable]
     headers:
+      ETag:
+        type: string
+        description: |
+          An etag of the resource
+        required: false
+      Cache-Control: string
       x-string: string
       x-optional:
         type: string
